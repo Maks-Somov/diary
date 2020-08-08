@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+<div th:replace="parts/head :: head"></div>
+<div class="container">
+    <div th:replace="parts/header :: header"></div>
+    <div th:if="${not #lists.isEmpty(notes)}">
+        <div th:replace="parts/list :: notebook"></div>
+    </div>
+<!--    <div th:replace="parts/footer :: footer"></div>-->
+</div>
+</body>
+</html>
