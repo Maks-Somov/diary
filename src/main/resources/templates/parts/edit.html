@@ -4,9 +4,9 @@
       xmlns:th="http://www.thymeleaf.org">
 <head th:replace="parts/head :: head"></head>
 <body>
-<div class="container">
+
     <div th:replace="parts/header :: header"></div>
-    <div class="container">
+    <div class="container width= mt-5">
         <form class="form-horizontal" th:object="${note}" th:action="@{/update}" name="edit_form" id="edit_form"
               method="post" role="form">
             <div class="form-group">
@@ -28,7 +28,7 @@
             </div>
         </form>
     </div>
-</div>
 
+<div th:replace="parts/common :: common"></div>
 </body>
 </html>

@@ -3,13 +3,13 @@
       xmlns:th="http://www.thymeleaf.org">
 <head th:replace="parts/head :: head"></head>
 <body>
-<div class="container">
+
     <div th:replace="parts/header :: header"></div>
-    <div class="container">
+    <div class="container mt-5">
         <form class="form-horizontal" th:action="@{/save}" name="input_form" id="input_form"
               method="post" role="form">
             <div class="form-group">
-               <div><input type="text" class="form-control" autocomplete="off" id="note" th:name="note" placeholder="Enter your note." maxlength="100"/></div>
+              <div><input type="text" class="form-control" autocomplete="off" id="note" th:name="note" placeholder="Enter your note." maxlength="100"/></div>
 <!--
                 <div><input type="date"  class="form-control" id="date" th:name="date" placeholder="Choose date."/></div>
 -->
@@ -19,6 +19,6 @@
             </div>
         </form>
     </div>
-</div>
+
 </body>
 </html>

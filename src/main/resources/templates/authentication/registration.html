@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
+<head th:replace="parts/head :: head">
     <title>Spring Security Example </title>
 </head>
 <body>
+<div class="container">
 <div th:if="${param.error}">
     Invalid username and password.
 </div>
@@ -20,6 +21,7 @@ Add new user
     <div><label> Password: <input type="password" name="password"/> </label></div>
     <div><input type="submit" value="Sign In"/></div>
 </form>
+</div>
 <div th:replace="parts/common :: common"></div>
 </body>
 </html>
