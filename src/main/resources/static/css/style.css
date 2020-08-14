@@ -19,6 +19,16 @@ TD, TH {
     border: 2px solid #5e5e5e; /* Рамка вокруг ячеек */
 }
 
+.form-control1{
+    position:relative;
+    z-index:2;
+    float:left;
+    width:50%;
+    margin-bottom:0;
+    height:30px;
+    line-height:30px
+}
+
 thead th {
     background-color: #000000;
 }

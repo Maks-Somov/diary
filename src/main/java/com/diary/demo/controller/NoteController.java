@@ -1,8 +1,10 @@
 package com.diary.demo.controller;
 
 import com.diary.demo.entity.Note;
+import com.diary.demo.entity.User;
 import com.diary.demo.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,11 +27,16 @@ public class NoteController {
     }
 
     @GetMapping("/index")
-    public String list(Model model) {
-        List<Note> notebook = filterAndSort();
+    public String list(@AuthenticationPrincipal User user, Model model) {
+        List<Note> notebook = filterAndSort(user);
         model.addAttribute("notes", notebook);
         model.addAttribute("sort", sortDateMethod);
         return "index";
+    }
+    @PostMapping("/index")
+    public String addNewNoteOnMain(@RequestParam String note, @AuthenticationPrincipal User user){
+            noteService.saveNote(new Note(note, user));
+        return "redirect:/index";
     }
 
     @GetMapping("/sort/{sortDate}")
@@ -44,9 +51,9 @@ public class NoteController {
     }
 
     @PostMapping("/save")
-    public String updateNote(@RequestParam String note) {
+    public String updateNote(@RequestParam String note, @AuthenticationPrincipal User user) {
         if (note!=null) {
-            noteService.saveNote(new Note(note));
+            noteService.saveNote(new Note(note, user));
             return "redirect:/index";
         }else return  "parts/new";
     }
@@ -71,14 +78,14 @@ public class NoteController {
         return "redirect:/index";
     }
 
-    private List<Note> filterAndSort() {
+    private List<Note> filterAndSort(User user) {
         List<Note> notebook = null;
         switch (sortDateMethod) {
             case "ASC":
-                notebook = noteService.findAllByOrderByDateAsc();
+                notebook = noteService.findAllByAuthorOrderByDateAsc(user);
                 break;
             case "DESC":
-                notebook = noteService.findAllByOrderByDateDesc();
+                notebook = noteService.findAllByAuthorOrderByDateDesc(user);
                 break;
         }
         return notebook;

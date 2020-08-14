@@ -1,6 +1,7 @@
 package com.diary.demo.service;
 
 import com.diary.demo.entity.Note;
+import com.diary.demo.entity.User;
 import com.diary.demo.repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,6 +50,16 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public void saveNote(Note note) {
         noteRepository.save(note);
+    }
+
+    @Override
+    public List<Note> findAllByAuthorOrderByDateAsc(User user) {
+        return noteRepository.findAllByAuthorOrderByDateAsc(user);
+    }
+
+    @Override
+    public List<Note> findAllByAuthorOrderByDateDesc(User user) {
+        return noteRepository.findAllByAuthorOrderByDateDesc(user);
     }
 
 

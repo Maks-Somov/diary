@@ -31,8 +31,13 @@ public class Note {
     @Column(name = "done")
     private boolean done;
 
-    public Note(String note){
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User author;
+
+    public Note(String note, User user){
         this.note = note;
+        this.author = user;
         this.date = new Date();
         this.done = false;
     }
@@ -40,5 +45,8 @@ public class Note {
         this.note = note;
         this.date = date;
         this.done = false;
+    }
+    public String getAuthorName(){
+        return author != null ? author.getUsername() : "<none>";
     }
 }

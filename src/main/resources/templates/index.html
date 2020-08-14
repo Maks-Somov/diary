@@ -6,10 +6,18 @@
 <div th:replace="parts/head :: head"></div>
 <div class="container">
     <div th:replace="parts/header :: header"></div>
+    <form class="form-horizontal" th:action="@{/index}" method="post">
+        <div class="form-group">
+            <div><input type="text" class="form-control1" autocomplete="off" id="note" th:name="note" placeholder="Enter your note." maxlength="100"/></div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+    </form>
     <div th:if="${not #lists.isEmpty(notes)}">
         <div th:replace="parts/list :: notebook"></div>
     </div>
-<!--    <div th:replace="parts/footer :: footer"></div>-->
+    <div th:replace="parts/common :: common"></div>
 </div>
 </body>
 </html>

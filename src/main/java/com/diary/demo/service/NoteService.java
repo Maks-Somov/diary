@@ -1,6 +1,7 @@
 package com.diary.demo.service;
 
 import com.diary.demo.entity.Note;
+import com.diary.demo.entity.User;
 
 import java.util.List;
 
@@ -12,4 +13,6 @@ public interface NoteService {
     List<Note> findAll();
     List<Note> findAllByOrderByDateAsc();
     List<Note> findAllByOrderByDateDesc();
+    List<Note> findAllByAuthorOrderByDateAsc(User user);
+    List<Note> findAllByAuthorOrderByDateDesc(User user);
 }
