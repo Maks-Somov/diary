@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
 import java.util.List;
 
 @Controller
@@ -35,7 +36,9 @@ public class NoteController {
     }
     @PostMapping("/index")
     public String addNewNoteOnMain(@RequestParam String note, @AuthenticationPrincipal User user){
-            noteService.saveNote(new Note(note, user));
+
+        noteService.saveNote(new Note(note, user));
+
         return "redirect:/index";
     }
 

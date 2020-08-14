@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
 /*CREATE TABLE `db_for_diary`.`notes` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -23,6 +24,7 @@ public class Note {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Column(name = "note")
+//    @Size(min = 2)
     private String note;
     @Column(name = "date")
    /* @Temporal(TemporalType.DATE)

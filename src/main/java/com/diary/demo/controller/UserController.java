@@ -8,7 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+
+import javax.validation.Valid;
 import java.util.Collections;
 
 @Controller
@@ -23,17 +26,20 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public String addNewUser(User user, Model model){
+    public String addNewUser(@RequestParam User user, Model model){
         User username = userRepository.findByUsername(user.getUsername());
         if (username != null){
             model.addAttribute("message", "User exists!");
             return "authentication/registration";
         }
-
-        user.setActive(true);
-        user.setRoles(Collections.singleton(Role.USER));
-        userRepository.save(user);
-
-        return "redirect:/login";
+//        if(!bindingResult.hasErrors()) {
+            user.setActive(true);
+            user.setRoles(Collections.singleton(Role.USER));
+            userRepository.save(user);
+            return "redirect:/login";
+//        }else{
+//            model.addAttribute("shortUorP", "User existsYour username or password is too short!");
+//            return "authentication/registration";
+//        }
     }
 }
