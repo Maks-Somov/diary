@@ -26,20 +26,20 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public String addNewUser(@RequestParam User user, Model model){
+    public String addNewUser(User user, Model model){
         User username = userRepository.findByUsername(user.getUsername());
         if (username != null){
             model.addAttribute("message", "User exists!");
             return "authentication/registration";
         }
-//        if(!bindingResult.hasErrors()) {
+        if(user.getPassword().length()>3 && user.getUsername().length()>3) {
             user.setActive(true);
             user.setRoles(Collections.singleton(Role.USER));
             userRepository.save(user);
             return "redirect:/login";
-//        }else{
-//            model.addAttribute("shortUorP", "User existsYour username or password is too short!");
-//            return "authentication/registration";
-//        }
+        }else{
+            model.addAttribute("shortUorP", "User existsYour username or password is too short!");
+            return "authentication/registration";
+        }
     }
 }

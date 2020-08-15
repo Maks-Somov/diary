@@ -35,10 +35,13 @@ public class NoteController {
         return "index";
     }
     @PostMapping("/index")
-    public String addNewNoteOnMain(@RequestParam String note, @AuthenticationPrincipal User user){
-
-        noteService.saveNote(new Note(note, user));
-
+    public String addNewNoteOnMain(@RequestParam String note, @AuthenticationPrincipal User user, Model model){
+        Note notes = new Note();
+        notes.setNote(note);
+        if (notes.getNote().length()>1) {
+            noteService.saveNote(new Note(note, user));
+            model.addAttribute("shortNote", "Short note!");
+        }
         return "redirect:/index";
     }
 
@@ -54,11 +57,15 @@ public class NoteController {
     }
 
     @PostMapping("/save")
-    public String updateNote(@RequestParam String note, @AuthenticationPrincipal User user) {
-        if (note!=null) {
+    public String updateNote(@RequestParam String note, @AuthenticationPrincipal User user, Model model) {
+        Note notes = new Note();
+        notes.setNote(note);
+        if (notes.getNote().length()>1) {
             noteService.saveNote(new Note(note, user));
             return "redirect:/index";
-        }else return  "parts/new";
+        }else{
+            model.addAttribute("shortNoteS", "Short note!");
+            return  "parts/new";}
     }
 
     @GetMapping("/edit/{id}")
