@@ -38,7 +38,7 @@ public class UserController {
             userRepository.save(user);
             return "redirect:/login";
         }else{
-            model.addAttribute("shortUorP", "User existsYour username or password is too short!");
+            model.addAttribute("shortUorP", "Your username or password is too short!");
             return "authentication/registration";
         }
     }

@@ -34,13 +34,12 @@ public class NoteController {
         model.addAttribute("sort", sortDateMethod);
         return "index";
     }
-    @PostMapping("/index")
+    @PostMapping("/newOnMain")
     public String addNewNoteOnMain(@RequestParam String note, @AuthenticationPrincipal User user, Model model){
         Note notes = new Note();
         notes.setNote(note);
-        if (notes.getNote().length()>1) {
+        if (notes.getNote().length()>=1) {
             noteService.saveNote(new Note(note, user));
-            model.addAttribute("shortNote", "Short note!");
         }
         return "redirect:/index";
     }
@@ -60,7 +59,7 @@ public class NoteController {
     public String updateNote(@RequestParam String note, @AuthenticationPrincipal User user, Model model) {
         Note notes = new Note();
         notes.setNote(note);
-        if (notes.getNote().length()>1) {
+        if (notes.getNote().length()>=1) {
             noteService.saveNote(new Note(note, user));
             return "redirect:/index";
         }else{

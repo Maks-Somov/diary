@@ -18,7 +18,7 @@
                 </ul>
 
                 <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post">
-                    <a class="nav-link disabled" tabindex="-1" aria-disabled="true" th:inline="text">Вы зашли под именем [[${#httpServletRequest.remoteUser}]]</a>
+                    <a class="nav-link disabled" tabindex="-1" aria-disabled="true" th:inline="text">[[${#httpServletRequest.remoteUser}]]</a>
 <!--
                     <input type="submit" value="Sign Out"/>
 -->

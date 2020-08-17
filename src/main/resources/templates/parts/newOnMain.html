@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="new">
+<!--
+    <div class="container mt-5">
+-->
+        <form class="form-horizontal form-inline" th:action="@{/newOnMain}" method="post">
+            <div class="form-group mx-sm-3 mb-2">
+                <div><input type="text" class="form-control" autocomplete="off" id="note" th:name="note" placeholder="Enter your note." maxlength="100"/></div>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Add</button>
+        </form>
+<!--
+    </div>
+-->
+</div>
+</html>
