@@ -22,14 +22,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 			.authorizeRequests()
 				//Доступ разрешен всем пользователям
-					.antMatchers("/", "/registration").permitAll()
+					.antMatchers("/registration").permitAll()
 				//Все остальные страницы требуют аутентификации
 					.anyRequest().authenticated()
 				.and()
 					.formLogin()
 					.loginPage("/login")
 				//Перенарпавление на главную страницу после успешного входа
-					.defaultSuccessUrl("/index")
+					.defaultSuccessUrl("/")
 					.permitAll()
 				.and()
 					.logout()

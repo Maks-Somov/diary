@@ -23,11 +23,6 @@ public class NoteController {
     private String sortDateMethod = "ASC";
 
     @GetMapping("/")
-    public String hello(){
-        return "parts/home";
-    }
-
-    @GetMapping("/index")
     public String list(@AuthenticationPrincipal User user, Model model) {
         List<Note> notebook = filterAndSort(user);
         model.addAttribute("notes", notebook);
@@ -41,13 +36,13 @@ public class NoteController {
         if (notes.getNote().length()>=1) {
             noteService.saveNote(new Note(note, user));
         }
-        return "redirect:/index";
+        return "redirect:/";
     }
 
     @GetMapping("/sort/{sortDate}")
     public String sortChoose(@PathVariable String sortDate) {
         sortDateMethod = sortDate;
-        return "redirect:/index";
+        return "redirect:/";
     }
 
     @GetMapping("/new")
@@ -61,7 +56,7 @@ public class NoteController {
         notes.setNote(note);
         if (notes.getNote().length()>=1) {
             noteService.saveNote(new Note(note, user));
-            return "redirect:/index";
+            return "redirect:/";
         }else{
             model.addAttribute("shortNoteS", "Short note!");
             return  "parts/new";}
@@ -78,13 +73,13 @@ public class NoteController {
     public String saveNote(@RequestParam Integer id, @RequestParam String note,
                            @RequestParam(value = "done", required = false) boolean done) {
         noteService.updateNote(id, note, done);
-        return "redirect:/index";
+        return "redirect:/";
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
         noteService.deleteNote(id);
-        return "redirect:/index";
+        return "redirect:/";
     }
 
     private List<Note> filterAndSort(User user) {
