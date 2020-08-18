@@ -3,6 +3,7 @@ package com.diary.demo.controller;
 import com.diary.demo.entity.Note;
 import com.diary.demo.entity.User;
 import com.diary.demo.service.NoteService;
+import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -31,9 +32,7 @@ public class NoteController {
     }
     @PostMapping("/newOnMain")
     public String addNewNoteOnMain(@RequestParam String note, @AuthenticationPrincipal User user, Model model){
-        Note notes = new Note();
-        notes.setNote(note);
-        if (notes.getNote().length()>=1) {
+        if(note.length()>=1){
             noteService.saveNote(new Note(note, user));
         }
         return "redirect:/";
@@ -51,14 +50,12 @@ public class NoteController {
     }
 
     @PostMapping("/save")
-    public String updateNote(@RequestParam String note, @AuthenticationPrincipal User user, Model model) {
-        Note notes = new Note();
-        notes.setNote(note);
-        if (notes.getNote().length()>=1) {
+    public String saveNote(@RequestParam String note, @AuthenticationPrincipal User user, Model model) {
+        if(note.length()>=1){
             noteService.saveNote(new Note(note, user));
             return "redirect:/";
         }else{
-            model.addAttribute("shortNoteS", "Short note!");
+            model.addAttribute("shortNote", "Short note!");
             return  "parts/new";}
     }
 
@@ -70,10 +67,10 @@ public class NoteController {
     }
 
     @PostMapping("/update")
-    public String saveNote(@RequestParam Integer id, @RequestParam String note,
-                           @RequestParam(value = "done", required = false) boolean done) {
-        noteService.updateNote(id, note, done);
-        return "redirect:/";
+    public String updateNote(@RequestParam Integer id, @RequestParam String note,
+                             @RequestParam(value = "done", required = false) boolean done) {
+            noteService.updateNote(id, note, done);
+            return "redirect:/";
     }
 
     @GetMapping("/delete/{id}")

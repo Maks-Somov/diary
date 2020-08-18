@@ -48,7 +48,4 @@ public class Note {
         this.date = date;
         this.done = false;
     }
-    public String getAuthorName(){
-        return author != null ? author.getUsername() : "<none>";
-    }
 }
