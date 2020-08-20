@@ -73,11 +73,26 @@ public class NoteController {
             return "redirect:/";
     }
 
+    @GetMapping("/send/{id}")
+    public String send(@PathVariable Integer id, Model model) {
+        Note note = noteService.getNoteById(id);
+        model.addAttribute("note", note);
+        return "parts/send";
+    }
+    @PostMapping("/sendNote")
+    public String sendNote(@RequestParam Integer id, @RequestParam String note,
+                           @RequestParam String email) {
+        //TODO send message
+        return "redirect:/";
+    }
+
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
         noteService.deleteNote(id);
         return "redirect:/";
     }
+
+
 
     private List<Note> filterAndSort(User user) {
         List<Note> notebook = null;
