@@ -1,7 +1,9 @@
 package com.diary.demo.controller;
 
+import com.diary.demo.entity.Message;
 import com.diary.demo.entity.Note;
 import com.diary.demo.entity.User;
+import com.diary.demo.service.MessageService;
 import com.diary.demo.service.NoteService;
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ import java.util.List;
 public class NoteController {
     @Autowired
     private NoteService noteService;
+
+    @Autowired
+    private MessageService messageService;
 
     private String sortDateMethod = "ASC";
 
