@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Date;
 /*CREATE TABLE `db_for_diary`.`notes` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -19,7 +20,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Note {
+public class Note implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
