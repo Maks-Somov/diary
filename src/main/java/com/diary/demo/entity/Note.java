@@ -20,7 +20,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Note implements Serializable {
+public class Note{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;

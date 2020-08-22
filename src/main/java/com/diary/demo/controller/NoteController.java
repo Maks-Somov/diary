@@ -23,9 +23,6 @@ public class NoteController {
     @Autowired
     private NoteService noteService;
 
-    @Autowired
-    private MessageService messageService;
-
     private String sortDateMethod = "ASC";
 
     @GetMapping("/")

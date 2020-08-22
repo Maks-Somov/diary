@@ -8,10 +8,7 @@ import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MessageController {
@@ -27,6 +24,7 @@ public class MessageController {
         model.addAttribute("note", note);
         return "parts/send";
     }
+
     @PostMapping("/sendNote")
     public String sendNote(@RequestParam("id") Integer id, @RequestParam("email") String email) {
         Note note = noteService.getNoteById(id);

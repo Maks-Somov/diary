@@ -20,11 +20,11 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-//    @Size(min=4)
     private String username;
-//    @Size(min=4)
     private String password;
     private boolean active;
+    private String googleName;
+    private String googleUsername;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
