@@ -4,7 +4,6 @@ import com.diary.demo.entity.Message;
 import com.diary.demo.entity.Note;
 import com.diary.demo.service.MessageService;
 import com.diary.demo.service.NoteService;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +32,6 @@ public class MessageController {
         message.setMsg(msg);
         message.setEmail(email);
         messageService.sendMessage(message);
-        return "redirect:/";
+        return "redirect:/notes";
     }
 }

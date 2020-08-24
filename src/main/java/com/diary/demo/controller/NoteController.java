@@ -1,13 +1,10 @@
 package com.diary.demo.controller;
 
-import com.diary.demo.entity.Message;
 import com.diary.demo.entity.Note;
 import com.diary.demo.entity.User;
-import com.diary.demo.service.MessageService;
 import com.diary.demo.service.NoteService;
-import org.dom4j.rule.Mode;
+import com.diary.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,35 +12,55 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
+import java.security.Principal;
 import java.util.List;
 
 @Controller
 public class NoteController {
     @Autowired
     private NoteService noteService;
+    @Autowired
+    private UserService userService;
 
     private String sortDateMethod = "ASC";
 
     @GetMapping("/")
-    public String list(@AuthenticationPrincipal User user, Model model) {
+    public String index(Principal principal)
+    {
+        if(principal != null)
+        {
+            return "redirect:/notes";
+        }
+        return "begin";
+    }
+
+    @GetMapping("/notes")
+    public String list(
+//            @AuthenticationPrincipal User user,
+            Principal principal,
+            Model model) {
+        User user = (User) userService.loadUserByUsername(principal.getName());
         List<Note> notebook = filterAndSort(user);
         model.addAttribute("notes", notebook);
         model.addAttribute("sort", sortDateMethod);
         return "index";
     }
     @PostMapping("/newOnMain")
-    public String addNewNoteOnMain(@RequestParam String note, @AuthenticationPrincipal User user, Model model){
+    public String addNewNoteOnMain(@RequestParam String note,
+//                                   @AuthenticationPrincipal User user,
+                                   Principal principal,
+                                   Model model){
+        User user = (User) userService.loadUserByUsername(principal.getName());
         if(note.length()>=1){
             noteService.saveNote(new Note(note, user));
         }
-        return "redirect:/";
+        return "redirect:/notes";
     }
 
     @GetMapping("/sort/{sortDate}")
     public String sortChoose(@PathVariable String sortDate) {
         sortDateMethod = sortDate;
-        return "redirect:/";
+        return "redirect:/notes";
     }
 
     @GetMapping("/new")
@@ -52,10 +69,14 @@ public class NoteController {
     }
 
     @PostMapping("/save")
-    public String saveNote(@RequestParam String note, @AuthenticationPrincipal User user, Model model) {
+    public String saveNote(@RequestParam String note,
+//                           @AuthenticationPrincipal User user,
+                           Principal principal,
+                           Model model) {
+        User user = (User) userService.loadUserByUsername(principal.getName());
         if(note.length()>=1){
             noteService.saveNote(new Note(note, user));
-            return "redirect:/";
+            return "redirect:/notes";
         }else{
             model.addAttribute("shortNote", "Short note!");
             return  "parts/new";}
@@ -72,13 +93,13 @@ public class NoteController {
     public String updateNote(@RequestParam Integer id, @RequestParam String note,
                              @RequestParam(value = "done", required = false) boolean done) {
             noteService.updateNote(id, note, done);
-            return "redirect:/";
+            return "redirect:/notes";
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
         noteService.deleteNote(id);
-        return "redirect:/";
+        return "redirect:/notes";
     }
 
 

@@ -62,5 +62,10 @@ public class NoteServiceImpl implements NoteService {
         return noteRepository.findAllByAuthorOrderByDateDesc(user);
     }
 
+    @Override
+    public List<Note> findByAuthor(User user) {
+        return noteRepository.findByAuthor(user);
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package com.diary.demo.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,8 +19,7 @@ import java.util.Date;
 @Entity
 @Table(name = "notes", schema = "db_for_diary", catalog = "")
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class Note{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

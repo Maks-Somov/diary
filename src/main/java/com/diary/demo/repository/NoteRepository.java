@@ -11,4 +11,5 @@ public interface NoteRepository extends JpaRepository<Note, Integer> {
     List<Note> findAllByOrderByDateDesc();
     List<Note> findAllByAuthorOrderByDateAsc(User user);
     List<Note> findAllByAuthorOrderByDateDesc(User user);
+    List<Note> findByAuthor(User user);
 }
