@@ -91,14 +91,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 				.csrf().disable()
 			.authorizeRequests()
-				//Доступ разрешен всем пользователям
+				//Access is allowed to all users
 					.antMatchers("/login**", "/registration").permitAll()
-				//Все остальные страницы требуют аутентификации
+				//All other pages require authentication
 					.anyRequest().authenticated()
 				.and()
 					.formLogin()
 					.loginPage("/login")
-				//Перенарпавление на главную страницу после успешного входа
+				//Redirecting to the main page after successful login
 					.defaultSuccessUrl("/notes")
 					.permitAll()
 				.and()

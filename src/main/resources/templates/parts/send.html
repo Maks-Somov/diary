@@ -17,6 +17,9 @@
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Send</button>
         </div>
+        <div class="form-group" style="text-align: center" th:if="${invalid}">
+            <div th:text="${invalid}"></div>
+        </div>
     </form>
 </div>
 

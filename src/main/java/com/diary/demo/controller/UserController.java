@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.Collections;
+import java.util.regex.Pattern;
 
 @Controller
 public class UserController {
@@ -23,6 +24,16 @@ public class UserController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    private static final Pattern PASSWORD_RULE_USER = Pattern.compile(
+            "^" +
+                    "(?=.*[0-9])" +                         // a digit must occur at least once
+                    "(?=.*[A-Z])" +                         // an upper case letter must occur at least once
+                    ".{8,}" +                               // 8 chars minimum
+                    "$");
+
+//    private static final Pattern USERNAME_RULE_USER = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" +
+//            "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 
     @GetMapping("/registration")
     public String registration(){
@@ -37,7 +48,9 @@ public class UserController {
             return "authentication/registration";
         }
         String pass = user.getPassword();
-        if(user.getPassword().length()>3 && user.getUsername().length()>3) {
+        if(PASSWORD_RULE_USER.matcher(user.getPassword()).matches() &&
+//                USERNAME_RULE_USER.matcher(user.getUsername()).matches()
+        user.getUsername().length()>3) {
             user.setPassword(passwordEncoder.encode(pass));
             user.setActive(true);
             user.setRoles(Collections.singleton(Role.USER));
